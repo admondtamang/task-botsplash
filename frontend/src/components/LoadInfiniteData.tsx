@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
-import { IRepo } from '../types';
-import useDebounce from '../hooks/useDebounce';
-import { fetchProjects } from '../queries/get.projects';
+import { IRepo } from "../types";
+import useDebounce from "../hooks/useDebounce";
+import { fetchProjects } from "../queries/get.projects";
 
 const InfinitePagination = () => {
   const [data, setData] = useState<IRepo[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const debouncedSearch = useDebounce(search, 600);
 
@@ -30,18 +30,19 @@ const InfinitePagination = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { payload } = (await fetchProjects({ page, search: debouncedSearch })) || {};
+        const { payload } =
+          (await fetchProjects({ page, search: debouncedSearch })) || {};
 
         setData((prevData: any) => [...prevData, ...payload]);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [page]); // ? Fetch data when the page state changes
+  }, [page, debouncedSearch, search]); // ? Fetch data when the page state changes
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -54,12 +55,12 @@ const InfinitePagination = () => {
       <input type="text" onChange={handleChange} value={search} />
       <ul>
         {data.map((item: IRepo, i: number) => (
-          <li className="card text-3xl" key={item?.id}>
+          <li className="text-3xl card" key={item?.id}>
             {i + 1} - {item?.name}
           </li>
         ))}
       </ul>
-      <div ref={ref} style={{ height: '10px' }} />
+      <div ref={ref} style={{ height: "10px" }} />
       {loading && <p>Loading...</p>}
     </div>
   );
