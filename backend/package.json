@@ -6,10 +6,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p tsconfig.json",
+    "build": "rimraf dist && tsc -p tsconfig.json",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add build",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "dev": "tsx watch src .env | pino-pretty --colorize"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
