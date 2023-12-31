@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && tsc -p tsconfig.json",
     "ts.check": "tsc --project tsconfig.json",
+    "vercel": "vercel dev",
     "add-build": "git add build",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "dev": "tsx watch src .env | pino-pretty --colorize"
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.10.4",
+    "@vercel/node": "^3.0.14",
     "pino-pretty": "^10.2.3",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
