@@ -1,16 +1,9 @@
 {
-  "version": 2,
-  "builds": [
+  "outputDirectory": "build",
+  "rewrites": [
     {
-      "src": "build/index.js",
-      "use": "@vercel/node",
-      "config": { "includeFiles": ["build/**"] }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "build/index.js"
+      "source": "/(.*)",
+      "destination": "/api/serverless.ts"
     }
   ]
 }
